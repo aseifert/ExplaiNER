@@ -3,6 +3,7 @@ title: ExplaiNER
 emoji: 🏷️
 colorFrom: blue
 colorTo: indigo
+python_version: 3.9
 sdk: streamlit
 sdk_version: 1.10.0
 app_file: main.py
