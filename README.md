@@ -74,7 +74,7 @@ Show every example sorted by loss (descending) for close inspection.
 
 ### Random Samples
 
-Show random samples. Simple idea, but often it turns up some interesting things.
+Show random samples. Simple method, but it often turns up interesting things.
 
 
 ### Find Duplicates
