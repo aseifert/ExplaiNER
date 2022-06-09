@@ -9,6 +9,6 @@ datasets
 numpy
 matplotlib
 seqeval
-st_aggrid
+streamlit-aggrid
 streamlit_option_menu
 git+https://github.com/aseifert/ecco.git@streamlit
