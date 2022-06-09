@@ -10,9 +10,28 @@ app_file: main.py
 pinned: true
 ---
 
-# 🏷️ ExplaiNER
+# 🏷️ ExplaiNER: Error Analysis for NER models & datasets
 
 Error Analysis is an important but often overlooked part of the data science project lifecycle, for which there is still very little tooling available. Practitioners tend to write throwaway code or, worse, skip this crucial step of understanding their models' errors altogether. This project tries to provide an extensive toolkit to probe any NER model/dataset combination, find labeling errors and understand the models' and datasets' limitations, leading the user on her way to further improvements.
+
+
+Some interesting visualizations techniques:
+
+* customizable visualization of neural network activation, based on the embedding and the feed-forward layers of our transformer. (https://aclanthology.org/2021.acl-demo.30/)
+* customizable similarity map of a 2d projection of our model's final layer's hidden states, using different algorithms (a bit like the [Tensorflow Embedding Projector](https://projector.tensorflow.org/))
+* inline HTML representation of samples with token-level prediction + labels (my own; see 'Samples by loss' page for more info)
+* automatic selection of foreground-color (black/white) for a user-selected background-color
+* some fancy pandas styling here and there
+
+
+Libraries important to this project:
+
+* `streamlit` for demoing (custom multi-page feature hacked in, also using session state)
+* `plotly` and `matplotlib` for charting
+* `transformers` for providing the models, and `datasets` for, well, the datasets
+* a forked, slightly modified version of [`ecco`](https://github.com/jalammar/ecco) for visualizing the neural net activations
+* `sentence_transformers` for finding potential duplicates
+* `scikit-learn` for TruncatedSVD & PCA, `umap-learn` for UMAP
 
 
 ## Sections
