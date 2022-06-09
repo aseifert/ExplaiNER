@@ -1,0 +1,14 @@
+streamlit
+pandas
+scikit-learn
+plotly
+sentence-transformers
+transformers
+tokenizers
+datasets
+numpy
+matplotlib
+seqeval
+st_aggrid
+streamlit_option_menu
+git+git://github.com/aseifert/ecco@streamlit
