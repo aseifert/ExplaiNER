@@ -34,6 +34,9 @@ class LossesPage(Page):
         st.title(self.name)
         with st.expander("💡", expanded=True):
             st.write("Show count, mean and median loss per token and label.")
+            st.write(
+                "Look out for tokens that have a big gap between mean and median, indicating systematic labeling issues."
+            )
 
         col1, _, col2 = st.columns([8, 1, 6])
 
@@ -54,7 +57,7 @@ class LossesPage(Page):
             # st.dataframe(loss_by_label)
 
             st.write(
-                "_Attention: This statistic disregards that tokens have contextual representations._"
+                "_Caveat: Even though tokens have contextual representations, we average them to get these summary statistics._"
             )
 
         with col2:

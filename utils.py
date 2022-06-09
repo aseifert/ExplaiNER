@@ -81,11 +81,11 @@ def align_sample(row: pd.Series):
             tokens[-1] += tok.lstrip("▁").lstrip("##").rstrip("@@")
     out["tokens"] = tokens
 
-    if "labels" in columns:
-        out["labels"] = [row.labels[i] for i in indices]
-
     if "preds" in columns:
         out["preds"] = [row.preds[i] for i in indices]
+
+    if "labels" in columns:
+        out["labels"] = [row.labels[i] for i in indices]
 
     if "losses" in columns:
         out["losses"] = [row.losses[i] for i in indices]

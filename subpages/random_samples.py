@@ -18,7 +18,7 @@ class RandomSamplesPage(Page):
         st.title("🎲 Random Samples")
         with st.expander("💡", expanded=True):
             st.write(
-                "Show random samples. Simple idea, but often it turns up some interesting things."
+                "Show random samples. Simple method, but it often turns up interesting things."
             )
 
         random_sample_size = st.number_input(

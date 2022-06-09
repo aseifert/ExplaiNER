@@ -19,6 +19,15 @@ class LossySamplesPage(Page):
         st.title(self.name)
         with st.expander("💡", expanded=True):
             st.write("Show every example sorted by loss (descending) for close inspection.")
+            st.write(
+                "The **dataframe** is mostly self-explanatory. The cells are color-coded by label, a lighter color signifies a continuation label. Cells in the loss row are filled red from left to right relative to the top loss."
+            )
+            st.write(
+                "The **numbers to the left**: Top (black background) are sample number (listed here) and sample index (from the dataset). Below on yellow background is the total loss for the given sample."
+            )
+            st.write(
+                "The **annotated sample**: Every predicted entity (every token, really) gets a black border. The text color signifies the predicted label, with the first token of a sequence of token also showing the label's icon. If (and only if) the prediction is wrong, a small little box after the entity (token) contains the correct target class, with a background color corresponding to that class."
+            )
 
         st.subheader("💥 Samples ⬇loss")
         skip_correct = st.checkbox("Skip correct examples", value=True, key="skip_correct")
