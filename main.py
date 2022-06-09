@@ -17,8 +17,9 @@ from subpages import (
     RawDataPage,
 )
 from subpages.attention import AttentionPage
-from subpages.embeddings import EmbeddingsPage
+from subpages.hidden_states import HiddenStatesPage
 from subpages.inspect import InspectPage
+from utils import classmap
 
 sts = st.sidebar
 st.set_page_config(
@@ -54,25 +55,11 @@ def _write_color_legend(context):
     def style(x):
         return [f"background-color: {rgb}; opacity: 1;" for rgb in colors]
 
-    labelmap = {
-        "O": "O",
-        "person": "🙎",
-        "PER": "🙎",
-        "location": "🌎",
-        "LOC": "🌎",
-        "corporation": "🏤",
-        "ORG": "🏤",
-        "product": "📱",
-        "creative": "🎷",
-        "group": "🎷",
-        "MISC": "🎷",
-    }
-
     labels = list(set([lbl.split("-")[1] if "-" in lbl else lbl for lbl in context.labels]))
     colors = [st.session_state.get(f"color_{lbl}", "#000000") for lbl in labels]
 
     color_legend_df = pd.DataFrame(
-        [labelmap[l] for l in labels], columns=["label"], index=labels
+        [classmap[l] for l in labels], columns=["label"], index=labels
     ).T
     st.sidebar.write(
         color_legend_df.T.style.apply(style, axis=0).set_properties(
@@ -85,7 +72,7 @@ def main():
     pages: list[Page] = [
         HomePage(),
         AttentionPage(),
-        EmbeddingsPage(),
+        HiddenStatesPage(),
         ProbingPage(),
         MetricsPage(),
         MisclassifiedPage(),

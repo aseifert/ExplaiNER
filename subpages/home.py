@@ -3,11 +3,10 @@ import random
 from typing import Optional
 
 import streamlit as st
-from pandas import wide_to_long
 
 from data import get_data
 from subpages.page import Context, Page
-from utils import color_map_color
+from utils import classmap, color_map_color
 
 _SENTENCE_ENCODER_MODEL = (
     "sentence-transformers/all-MiniLM-L6-v2",
@@ -53,7 +52,7 @@ class HomePage(Page):
 
         with st.expander("💡", expanded=True):
             st.write(
-                "**Error Analysis is an important but often overlooked part of the data science project lifecycle**, for which there is still very little tooling available. Practitioners tend to write throwaway code or, worse, skip this crucial step of understanding their models' errors altogether. This project tries to provide an **extensive toolkit to probe any NER model/dataset combination**, find labeling errors and understand the models' and datasets' limitations, leading the user on her way to further improvements."
+                "**Error Analysis is an important but often overlooked part of the data science project lifecycle**, for which there is still very little tooling available. Practitioners tend to write throwaway code or, worse, skip this crucial step of understanding their models' errors altogether. This project tries to provide an **extensive toolkit to probe any NER model/dataset combination**, find labeling errors and understand the models' and datasets' limitations, leading the user on her way to further **improving both model AND dataset**."
             )
 
         col1, _, col2a, col2b = st.columns([1, 0.05, 0.15, 0.15])
@@ -91,7 +90,7 @@ class HomePage(Page):
                 st.text_input(
                     label="Encoder Model:",
                     key="encoder_model_name",
-                    help="Path or name of the encoder to use",
+                    help="Path or name of the encoder to use for duplicate detection",
                 )
                 ds_name = st.text_input(
                     label="Dataset:",
@@ -136,8 +135,9 @@ class HomePage(Page):
             emojis = list(json.load(open("subpages/emoji-en-US.json")).keys())
             for label in labels:
                 if f"icon_{label}" not in st.session_state:
-                    st.session_state[f"icon_{label}"] = "🤗"  #  labels[label]
+                    st.session_state[f"icon_{label}"] = classmap[label]
                 st.selectbox(label, key=f"icon_{label}", options=emojis)
+                classmap[label] = st.session_state[f"icon_{label}"]
 
         # if st.button("Reset to defaults"):
         #     st.session_state.update(**get_home_page_defaults())

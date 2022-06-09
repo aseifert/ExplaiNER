@@ -28,8 +28,8 @@ def reduce_dim_umap(X, n_neighbors=5, min_dist=0.1, metric="euclidean"):
     return UMAP(n_neighbors=n_neighbors, min_dist=min_dist, metric=metric).fit_transform(X)
 
 
-class EmbeddingsPage(Page):
-    name = "Embeddings"
+class HiddenStatesPage(Page):
+    name = "Hidden States"
     icon = "grid-3x3"
 
     def get_widget_defaults(self):

@@ -14,6 +14,19 @@ tokenizer_hash_funcs = {
 # device = torch.device("cuda" if torch.cuda.is_available() else "cpu" if torch.has_mps else "cpu")
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+classmap = {
+    "O": "O",
+    "PER": "🙎",
+    "person": "🙎",
+    "LOC": "🌎",
+    "location": "🌎",
+    "ORG": "🏤",
+    "corporation": "🏤",
+    "product": "📱",
+    "creative": "🎷",
+    "MISC": "🎷",
+}
+
 
 def aggrid_interactive_table(df: pd.DataFrame) -> dict:
     """Creates an st-aggrid interactive table based on a dataframe.
@@ -159,18 +172,6 @@ def colorize_classes(df: pd.DataFrame) -> pd.DataFrame:
 
 def htmlify_labeled_example(example: pd.DataFrame) -> str:
     html = []
-    classmap = {
-        "O": "O",
-        "PER": "🙎",
-        "person": "🙎",
-        "LOC": "🌎",
-        "location": "🌎",
-        "ORG": "🏤",
-        "corporation": "🏤",
-        "product": "📱",
-        "creative": "🎷",
-        "MISC": "🎷",
-    }
 
     for _, row in example.iterrows():
         pred = row.preds.split("-")[1] if "-" in row.preds else "O"
