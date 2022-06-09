@@ -1,3 +1,14 @@
+---
+title: ExplaiNER
+emoji: 🏷️
+colorFrom: blue
+colorTo: indigo
+sdk: streamlit
+sdk_version: 1.10.0
+app_file: main.py
+pinned: true
+---
+
 # ExplaiNER
 
 Error Analysis is an important but often overlooked part of the data science project lifecycle, for which there is still very little tooling available. Due to the lack of tooling, practitioners often write throwaway code or, worse, skip understanding their models' errors altogether. This project tries to provide an extensive toolkit to probe any NER model/dataset combination, find labeling errors and understand the models' and datasets' limitations, leading the user on her way to further improvements.
