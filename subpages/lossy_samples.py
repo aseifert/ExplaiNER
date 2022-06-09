@@ -82,6 +82,7 @@ td {
                 )
                 # styler.data = styler.data.astype(str)
                 st.write(styler.to_html(), unsafe_allow_html=True)
+                st.write("")
                 # st.dataframe(colorize_classes(sample.drop("hidden_states", axis=1)))#.bar(subset='losses'))  # type: ignore
                 # st.write(
                 #     colorize_errors(sample.round(3).drop("hidden_states", axis=1).astype(str))

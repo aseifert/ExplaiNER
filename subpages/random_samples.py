@@ -33,7 +33,6 @@ class RandomSamplesPage(Page):
 
         random_indices = context.df.sample(int(random_sample_size)).index
         samples = context.df_tokens_merged.loc[random_indices]
-        return
 
         for i, idx in enumerate(random_indices):
             sample = samples.loc[idx]
@@ -47,5 +46,4 @@ class RandomSamplesPage(Page):
             loss = f"<span title='total loss' style='display: block; background-color: yellow; color: gray; padding: 0 5px;'>𝐿 {sample.losses.sum():.3f}</span>"
             col1.write(f"{counter}{loss}", unsafe_allow_html=True)
             col1.write("")
-            st.write(sample.astype(str))
             col2.write(htmlify_labeled_example(sample), unsafe_allow_html=True)
