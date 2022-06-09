@@ -55,10 +55,13 @@ class HomePage(Page):
                 "**Error Analysis is an important but often overlooked part of the data science project lifecycle**, for which there is still very little tooling available. Practitioners tend to write throwaway code or, worse, skip this crucial step of understanding their models' errors altogether. This project tries to provide an **extensive toolkit to probe any NER model/dataset combination**, find labeling errors and understand the models' and datasets' limitations, leading the user on her way to further **improving both model AND dataset**."
             )
             st.write(
+                "**Note:** This Space requires a fair amount of computation, so please be patient with the loading animations. 🙏 I am caching as much as possible, so after the first wait most things should be precomputed."
+            )
+            st.write(
                 "_Caveat: Even though everything is customizable here, I haven't tested this app much with different models/datasets._"
             )
 
-        col1, _, col2a, col2b = st.columns([1, 0.05, 0.15, 0.15])
+        col1, _, col2a, col2b = st.columns([0.8, 0.05, 0.15, 0.15])
 
         with col1:
             random_form_key = f"settings-{random.randint(0, 100000)}"
