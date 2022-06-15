@@ -163,3 +163,4 @@ cache_dir/
 outputs/
 models/
 runs/
+.vscode/

@@ -12,4 +12,5 @@ matplotlib
 seqeval
 streamlit-aggrid
 streamlit_option_menu
+pdoc
 git+https://github.com/aseifert/ecco.git@streamlit

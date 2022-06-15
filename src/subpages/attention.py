@@ -1,3 +1,6 @@
+"""
+A group of neurons tend to fire in response to commas and other punctuation. Other groups of neurons tend to fire in response to pronouns. Use this visualization to factorize neuron activity in individual FFNN layers or in the entire model.
+"""
 import ecco
 import streamlit as st
 from streamlit.components.v1 import html
@@ -151,7 +154,7 @@ class AttentionPage(Page):
             )
         with col2:
             st.subheader("–")
-            text = st.text_area("Text", key="act_default_text")
+            text = st.text_area("Text", key="act_default_text", height=240)
 
         inputs = lm.tokenizer([text], return_tensors="pt")
         output = lm(inputs)

@@ -1,3 +1,6 @@
+"""
+For every token in the dataset, we take its hidden state and project it onto a two-dimensional plane. Data points are colored by label/prediction, with mislabeled examples marked by a small black border.
+"""
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go

@@ -1,3 +1,4 @@
+"""Inspect your whole dataset, either unfiltered or by id."""
 import streamlit as st
 
 from src.subpages.page import Context, Page

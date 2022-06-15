@@ -1,3 +1,6 @@
+"""
+The metrics page contains precision, recall and f-score metrics as well as a confusion matrix over all the classes. By default, the confusion matrix is normalized. There's an option to zero out the diagonal, leaving only prediction errors (here it makes sense to turn off normalization, so you get raw error counts).
+"""
 import re
 
 import matplotlib.pyplot as plt

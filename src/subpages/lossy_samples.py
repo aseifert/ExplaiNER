@@ -1,3 +1,4 @@
+"""Show every example sorted by loss (descending) for close inspection."""
 import pandas as pd
 import streamlit as st
 

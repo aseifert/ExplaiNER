@@ -1,3 +1,9 @@
+"""The App module is the main entry point for the application.
+
+    Run `streamlit run app.py` to start the app.
+
+"""
+
 import pandas as pd
 import streamlit as st
 from streamlit_option_menu import option_menu
@@ -69,6 +75,7 @@ def _write_color_legend(context):
 
 
 def main():
+    """The main entry point for the application."""
     pages: list[Page] = [
         HomePage(),
         AttentionPage(),

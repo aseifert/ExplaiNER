@@ -1,3 +1,4 @@
+"""Find potential duplicates in the data using cosine similarity."""
 import streamlit as st
 from sentence_transformers.util import cos_sim
 

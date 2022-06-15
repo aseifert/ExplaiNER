@@ -12,8 +12,9 @@ from src.utils import device, tokenizer_hash_funcs
 
 @st.cache(allow_output_mutation=True)
 def get_data(ds_name: str, config_name: str, split_name: str, split_sample_size: int) -> Dataset:
-    """Loads dataset from the HF hub (if not already loaded) and returns a Dataset object.
-    Uses datasets.load_dataset to load the dataset (see its documentation for additional details).
+    """Loads a Dataset from the HuggingFace hub (if not already loaded).
+
+    Uses `datasets.load_dataset` to load the dataset (see its documentation for additional details).
 
     Args:
         ds_name (str): Path or name of the dataset.
@@ -34,7 +35,7 @@ def get_data(ds_name: str, config_name: str, split_name: str, split_sample_size:
     hash_funcs=tokenizer_hash_funcs,
 )
 def get_collator(tokenizer) -> DataCollatorForTokenClassification:
-    """Data collator that will dynamically pad the inputs received, as well as the labels.
+    """Returns a DataCollator that will dynamically pad the inputs received, as well as the labels.
 
     Args:
         tokenizer ([PreTrainedTokenizer] or [PreTrainedTokenizerFast]): The tokenizer used for encoding the data.

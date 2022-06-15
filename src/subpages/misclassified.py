@@ -1,3 +1,4 @@
+"""This page contains all misclassified examples and allows filtering by specific error types."""
 from collections import defaultdict
 
 import pandas as pd

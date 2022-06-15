@@ -1,20 +1,45 @@
 ---
-title: ExplaiNER
-emoji: 🏷️
-colorFrom: blue
-colorTo: indigo
-python_version: 3.9
-sdk: streamlit
-sdk_version: 1.10.0
-app_file: src/app.py
-pinned: true
+title: "🏷️ ExplaiNER"
+subtitle: "Error Analysis for NER models & datasets"
 ---
-
-# 🏷️ ExplaiNER: Error Analysis for NER models & datasets
 
 Error Analysis is an important but often overlooked part of the data science project lifecycle, for which there is still very little tooling available. Practitioners tend to write throwaway code or, worse, skip this crucial step of understanding their models' errors altogether. This project tries to provide an extensive toolkit to probe any NER model/dataset combination, find labeling errors and understand the models' and datasets' limitations, leading the user on her way to further improvements.
 
-## Sections
+[Documentation](../doc/index.html) | [Slides](../presentation.pdf)
+
+## Getting started
+
+```bash
+# Install requirements
+pip install -r requirements.txt  # you'll need Python 3.9+
+
+# Run
+make run
+```
+
+## ExplaiNER's features
+
+![](./screenshot.jpg)
+
+
+Some interesting visualization techniques contained in this project:
+
+* customizable visualization of neural network activation, based on the embedding layer and the feed-forward layers of the selected transformer model. (https://aclanthology.org/2021.acl-demo.30/)
+* customizable similarity map of a 2d projection of the model's final layer's hidden states, using various algorithms (a bit like the [Tensorflow Embedding Projector](https://projector.tensorflow.org/))
+* inline HTML representation of samples with token-level prediction + labels (my own; see 'Samples by loss' page for more info)
+
+
+Libraries important to this project:
+
+* `streamlit` for demoing (custom multi-page feature hacked in, also using session state)
+* `plotly` and `matplotlib` for charting
+* `transformers` for providing the models, and `datasets` for, well, the datasets
+* a forked, slightly modified version of [`ecco`](https://github.com/jalammar/ecco) for visualizing the neural net activations
+* `sentence_transformers` for finding potential duplicates
+* `scikit-learn` for TruncatedSVD & PCA, `umap-learn` for UMAP
+
+
+## Application Sections
 
 
 ### Activations
@@ -22,7 +47,7 @@ Error Analysis is an important but often overlooked part of the data science pro
 A group of neurons tend to fire in response to commas and other punctuation. Other groups of neurons tend to fire in response to pronouns. Use this visualization to factorize neuron activity in individual FFNN layers or in the entire model.
 
 
-### Embeddings
+### Hidden States
 
 For every token in the dataset, we take its hidden state and project it onto a two-dimensional plane. Data points are colored by label/prediction, with mislabeled examples marked by a small black border.
 

@@ -1,3 +1,4 @@
+"""Show random samples. Simple method, but it often turns up interesting things."""
 import pandas as pd
 import streamlit as st
 
