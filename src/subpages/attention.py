@@ -2,7 +2,7 @@ import ecco
 import streamlit as st
 from streamlit.components.v1 import html
 
-from subpages.page import Context, Page  # type: ignore
+from src.subpages.page import Context, Page  # type: ignore
 
 SETUP_HTML = """
 <script src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script>

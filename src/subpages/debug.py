@@ -1,7 +1,7 @@
 import streamlit as st
 from pip._internal.operations import freeze
 
-from subpages.page import Context, Page
+from src.subpages.page import Context, Page
 
 
 class DebugPage(Page):

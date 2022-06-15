@@ -4,10 +4,10 @@ import pandas as pd
 import streamlit as st
 from datasets import Dataset  # type: ignore
 
-from data import encode_dataset, get_collator, get_data, get_split_df
-from model import get_encoder, get_model, get_tokenizer
-from subpages import Context
-from utils import align_sample, device, explode_df
+from src.data import encode_dataset, get_collator, get_data, get_split_df
+from src.model import get_encoder, get_model, get_tokenizer
+from src.subpages import Context
+from src.utils import align_sample, device, explode_df
 
 _TOKENIZER_NAME = (
     "xlm-roberta-base",

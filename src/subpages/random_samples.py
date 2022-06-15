@@ -1,8 +1,8 @@
 import pandas as pd
 import streamlit as st
 
-from subpages.page import Context, Page
-from utils import htmlify_labeled_example
+from src.subpages.page import Context, Page
+from src.utils import htmlify_labeled_example
 
 
 class RandomSamplesPage(Page):

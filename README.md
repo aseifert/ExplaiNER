@@ -6,7 +6,7 @@ colorTo: indigo
 python_version: 3.9
 sdk: streamlit
 sdk_version: 1.10.0
-app_file: src/main.py
+app_file: src/app.py
 pinned: true
 ---
 

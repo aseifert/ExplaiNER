@@ -1,7 +1,7 @@
 import streamlit as st
 from sentence_transformers.util import cos_sim
 
-from subpages.page import Context, Page
+from src.subpages.page import Context, Page
 
 
 @st.cache()

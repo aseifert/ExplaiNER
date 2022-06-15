@@ -1,8 +1,8 @@
 import pandas as pd
 import streamlit as st
 
-from subpages.page import Context, Page
-from utils import aggrid_interactive_table
+from src.subpages.page import Context, Page
+from src.utils import aggrid_interactive_table
 
 
 @st.cache

@@ -4,9 +4,9 @@ from typing import Optional
 
 import streamlit as st
 
-from data import get_data
-from subpages.page import Context, Page
-from utils import PROJ, classmap, color_map_color
+from src.data import get_data
+from src.subpages.page import Context, Page
+from src.utils import PROJ, classmap, color_map_color
 
 _SENTENCE_ENCODER_MODEL = (
     "sentence-transformers/all-MiniLM-L6-v2",

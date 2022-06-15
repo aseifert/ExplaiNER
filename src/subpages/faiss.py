@@ -1,8 +1,8 @@
 import streamlit as st
 from datasets import Dataset
 
-from subpages.page import Context, Page  # type: ignore
-from utils import device, explode_df, htmlify_labeled_example, tag_text
+from src.subpages.page import Context, Page  # type: ignore
+from src.utils import device, explode_df, htmlify_labeled_example, tag_text
 
 
 class FaissPage(Page):

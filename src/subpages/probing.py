@@ -1,7 +1,7 @@
 import streamlit as st
 
-from subpages.page import Context, Page
-from utils import device, tag_text
+from src.subpages.page import Context, Page
+from src.utils import device, tag_text
 
 _DEFAULT_SENTENCES = """
 Damit hatte er auf ihr letztes , völlig schiefgelaufenes Geschäftsessen angespielt .

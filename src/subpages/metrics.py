@@ -8,7 +8,7 @@ import streamlit as st
 from seqeval.metrics import classification_report
 from sklearn.metrics import ConfusionMatrixDisplay, confusion_matrix
 
-from subpages.page import Context, Page
+from src.subpages.page import Context, Page
 
 
 def _get_evaluation(df):

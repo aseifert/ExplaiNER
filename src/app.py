@@ -2,8 +2,8 @@ import pandas as pd
 import streamlit as st
 from streamlit_option_menu import option_menu
 
-from load import load_context
-from subpages import (
+from src.load import load_context
+from src.subpages import (
     DebugPage,
     FindDuplicatesPage,
     HomePage,
@@ -16,10 +16,10 @@ from subpages import (
     RandomSamplesPage,
     RawDataPage,
 )
-from subpages.attention import AttentionPage
-from subpages.hidden_states import HiddenStatesPage
-from subpages.inspect import InspectPage
-from utils import classmap
+from src.subpages.attention import AttentionPage
+from src.subpages.hidden_states import HiddenStatesPage
+from src.subpages.inspect import InspectPage
+from src.utils import classmap
 
 sts = st.sidebar
 st.set_page_config(

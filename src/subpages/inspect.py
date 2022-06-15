@@ -1,7 +1,7 @@
 import streamlit as st
 
-from subpages.page import Context, Page
-from utils import aggrid_interactive_table, colorize_classes
+from src.subpages.page import Context, Page
+from src.utils import aggrid_interactive_table, colorize_classes
 
 
 class InspectPage(Page):

@@ -3,7 +3,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 
-from subpages.page import Context, Page
+from src.subpages.page import Context, Page
 
 
 @st.cache

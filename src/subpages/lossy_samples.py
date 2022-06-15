@@ -1,8 +1,13 @@
 import pandas as pd
 import streamlit as st
 
-from subpages.page import Context, Page
-from utils import colorize_classes, get_bg_color, get_fg_color, htmlify_labeled_example
+from src.subpages.page import Context, Page
+from src.utils import (
+    colorize_classes,
+    get_bg_color,
+    get_fg_color,
+    htmlify_labeled_example,
+)
 
 
 class LossySamplesPage(Page):

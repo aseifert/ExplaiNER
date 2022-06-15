@@ -4,8 +4,8 @@ import pandas as pd
 import streamlit as st
 from sklearn.metrics import confusion_matrix
 
-from subpages.page import Context, Page
-from utils import htmlify_labeled_example
+from src.subpages.page import Context, Page
+from src.utils import htmlify_labeled_example
 
 
 class MisclassifiedPage(Page):

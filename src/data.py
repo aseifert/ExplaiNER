@@ -7,7 +7,7 @@ from datasets import Dataset, DatasetDict, load_dataset  # type: ignore
 from torch.nn.functional import cross_entropy
 from transformers import DataCollatorForTokenClassification  # type: ignore
 
-from utils import device, tokenizer_hash_funcs
+from src.utils import device, tokenizer_hash_funcs
 
 
 @st.cache(allow_output_mutation=True)
