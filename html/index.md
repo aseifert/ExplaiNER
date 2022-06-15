@@ -17,7 +17,7 @@ pip install -r requirements.txt  # you'll need Python 3.9+
 make run
 ```
 
-## ExplaiNER's features
+## Highlights
 
 ![](./screenshot.jpg)
 

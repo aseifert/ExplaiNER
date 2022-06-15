@@ -78,7 +78,7 @@ def tokenize_and_align_labels(examples, tokenizer):
         previous_word_idx = None
         label_ids = []
         for word_idx in word_ids:
-            if word_idx is -1 or word_idx is None or word_idx == previous_word_idx:
+            if word_idx == -1 or word_idx is None or word_idx == previous_word_idx:
                 label_ids.append(-100)
             else:
                 label_ids.append(label[word_idx])
