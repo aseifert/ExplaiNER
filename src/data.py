@@ -11,7 +11,19 @@ from utils import device, tokenizer_hash_funcs
 
 
 @st.cache(allow_output_mutation=True)
-def get_data(ds_name, config_name, split_name, split_sample_size) -> Dataset:
+def get_data(ds_name: str, config_name: str, split_name: str, split_sample_size: int) -> Dataset:
+    """Loads dataset from the HF hub (if not already loaded) and returns a Dataset object.
+    Uses datasets.load_dataset to load the dataset (see its documentation for additional details).
+
+    Args:
+        ds_name (str): Path or name of the dataset.
+        config_name (str): Name of the dataset configuration.
+        split_name (str): Which split of the data to load.
+        split_sample_size (int): The number of examples to load from the split.
+
+    Returns:
+        Dataset: A Dataset object.
+    """
     ds: DatasetDict = load_dataset(ds_name, name=config_name, use_auth_token=True).shuffle(seed=0)  # type: ignore
     split = ds[split_name].select(range(split_sample_size))
     return split
@@ -22,6 +34,14 @@ def get_data(ds_name, config_name, split_name, split_sample_size) -> Dataset:
     hash_funcs=tokenizer_hash_funcs,
 )
 def get_collator(tokenizer) -> DataCollatorForTokenClassification:
+    """Data collator that will dynamically pad the inputs received, as well as the labels.
+
+    Args:
+        tokenizer ([PreTrainedTokenizer] or [PreTrainedTokenizerFast]): The tokenizer used for encoding the data.
+
+    Returns:
+        DataCollatorForTokenClassification: The DataCollatorForTokenClassification object.
+    """
     return DataCollatorForTokenClassification(tokenizer)
 
 
@@ -70,10 +90,29 @@ def tokenize_and_align_labels(examples, tokenizer):
 
 
 def stringify_ner_tags(batch, tags):
+    """Stringifies a dataset batch's NER tags.
+
+    Args:
+        batch (_type_): _description_
+        tags (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     return {"ner_tags_str": [tags.int2str(idx) for idx in batch["ner_tags"]]}
 
 
-def encode_dataset(split, tokenizer):
+def encode_dataset(split: Dataset, tokenizer):
+    """Encodes a dataset split.
+
+    Args:
+        split (Dataset): A Dataset object.
+        tokenizer: A PreTrainedTokenizer object.
+
+    Returns:
+        Dataset: A Dataset object with the encoded inputs.
+    """
+
     tags = split.features["ner_tags"].feature
     split = split.map(partial(stringify_ner_tags, tags=tags), batched=True)
     remove_columns = split.column_names
@@ -120,6 +159,18 @@ def forward_pass_with_label(batch, model, collator, num_classes: int) -> dict:
 
 
 def get_split_df(split_encoded: Dataset, model, tokenizer, collator, tags) -> pd.DataFrame:
+    """Turns a Dataset into a pandas dataframe.
+
+    Args:
+        split_encoded (Dataset): _description_
+        model (_type_): _description_
+        tokenizer (_type_): _description_
+        collator (_type_): _description_
+        tags (_type_): _description_
+
+    Returns:
+        pd.DataFrame: _description_
+    """
     split_encoded = split_encoded.map(
         partial(
             forward_pass_with_label,

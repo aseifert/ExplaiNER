@@ -80,7 +80,7 @@ JS_TEMPLATE = """requirejs(['basic', 'ecco'], function(basic, ecco){{
 
 
 @st.cache(allow_output_mutation=True)
-def load_ecco_model():
+def _load_ecco_model():
     model_config = {
         "embedding": "embeddings.word_embeddings",
         "type": "mlm",
@@ -115,7 +115,7 @@ class AttentionPage(Page):
                 "A group of neurons tend to fire in response to commas and other punctuation. Other groups of neurons tend to fire in response to pronouns. Use this visualization to factorize neuron activity in individual FFNN layers or in the entire model."
             )
 
-        lm = load_ecco_model()
+        lm = _load_ecco_model()
 
         col1, _, col2 = st.columns([1.5, 0.5, 4])
         with col1:

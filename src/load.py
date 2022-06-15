@@ -39,6 +39,20 @@ def load_context(
     split_sample_size: int,
     **kw_args,
 ) -> Context:
+    """Utility method loading (almost) everything we need for the application.
+    This exists just because we want to cache the results of this function.
+
+    Args:
+        encoder_model_name (str): Name of the sentence encoder to load.
+        model_name (str): Name of the NER model to load.
+        ds_name (str): Dataset name or path.
+        ds_config_name (str): Dataset config name.
+        ds_split_name (str): Dataset split name.
+        split_sample_size (int): Number of examples to load from the split.
+
+    Returns:
+        Context: An object containing everything we need for the application.
+    """
 
     sentence_encoder, model, tokenizer = _load_models_and_tokenizer(
         encoder_model_name=encoder_model_name,
