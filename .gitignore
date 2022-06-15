@@ -164,3 +164,6 @@ outputs/
 models/
 runs/
 .vscode/
+doc/
+html/*.html
+vis2.zip
