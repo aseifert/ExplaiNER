@@ -70,8 +70,7 @@ SETUP_HTML = """
 JS_TEMPLATE = """requirejs(['basic', 'ecco'], function(basic, ecco){{
     const viz_id = basic.init()
 
-    ecco.interactiveTokensAndFactorSparklines(viz_id, {},
-    {{
+    ecco.interactiveTokensAndFactorSparklines(viz_id, {}, {{
     'hltrCFG': {{'tokenization_config': {{'token_prefix': '', 'partial_token_prefix': '##'}}
         }}
     }})
@@ -160,12 +159,7 @@ class AttentionPage(Page):
         data = nmf.explore(returnData=True)
         JS_TEMPLATE = f"""<script>requirejs(['basic', 'ecco'], function(basic, ecco){{
             const viz_id = basic.init()
-
-            ecco.interactiveTokensAndFactorSparklines(viz_id, {data},
-            {{
-            'hltrCFG': {{'tokenization_config': {{'token_prefix': '', 'partial_token_prefix': '##'}}
-                }}
-            }})
+            ecco.interactiveTokensAndFactorSparklines(viz_id, {data}, {{ 'hltrCFG': {{'tokenization_config': {{'token_prefix': '', 'partial_token_prefix': '##'}} }} }})
         }}, function (err) {{
             console.log(err);
         }})</script>"""

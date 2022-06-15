@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import matplotlib as matplotlib
 import matplotlib.cm as cm
 import pandas as pd
@@ -6,6 +8,8 @@ import tokenizers
 import torch
 import torch.nn.functional as F
 from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
+
+PROJ = Path(__file__).parent
 
 tokenizer_hash_funcs = {
     tokenizers.Tokenizer: lambda _: None,

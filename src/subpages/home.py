@@ -6,7 +6,7 @@ import streamlit as st
 
 from data import get_data
 from subpages.page import Context, Page
-from utils import classmap, color_map_color
+from utils import PROJ, classmap, color_map_color
 
 _SENTENCE_ENCODER_MODEL = (
     "sentence-transformers/all-MiniLM-L6-v2",
@@ -138,7 +138,7 @@ class HomePage(Page):
         with col2b:
             st.subheader("—")
             st.write("**Icon**")
-            emojis = list(json.load(open("subpages/emoji-en-US.json")).keys())
+            emojis = list(json.load(open(PROJ / "subpages/emoji-en-US.json")).keys())
             for label in labels:
                 if f"icon_{label}" not in st.session_state:
                     st.session_state[f"icon_{label}"] = classmap[label]

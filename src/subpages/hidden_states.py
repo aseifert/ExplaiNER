@@ -135,7 +135,7 @@ class HiddenStatesPage(Page):
                 x="x",
                 y="y",
                 color="labels",
-                hover_data=["sent0", "sent1", "sent2", "sent3", "sent4"],
+                hover_data=["ids", "preds", "sent0", "sent1", "sent2", "sent3", "sent4"],
                 hover_name="tokens",
                 title="Colored by label",
             )
@@ -147,7 +147,7 @@ class HiddenStatesPage(Page):
                 x="x",
                 y="y",
                 color="preds",
-                hover_data=["sent0", "sent1", "sent2", "sent3", "sent4"],
+                hover_data=["ids", "labels", "sent0", "sent1", "sent2", "sent3", "sent4"],
                 hover_name="tokens",
                 title="Colored by prediction",
             )
