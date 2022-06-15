@@ -15,10 +15,10 @@ pinned: true
 Error Analysis is an important but often overlooked part of the data science project lifecycle, for which there is still very little tooling available. Practitioners tend to write throwaway code or, worse, skip this crucial step of understanding their models' errors altogether. This project tries to provide an extensive toolkit to probe any NER model/dataset combination, find labeling errors and understand the models' and datasets' limitations, leading the user on her way to further improvements.
 
 
-Some interesting visualizations techniques:
+Some interesting visualization techniques:
 
-* customizable visualization of neural network activation, based on the embedding and the feed-forward layers of our transformer. (https://aclanthology.org/2021.acl-demo.30/)
-* customizable similarity map of a 2d projection of our model's final layer's hidden states, using different algorithms (a bit like the [Tensorflow Embedding Projector](https://projector.tensorflow.org/))
+* customizable visualization of neural network activation, based on the embedding layer and the feed-forward layers of the selected transformer model. (https://aclanthology.org/2021.acl-demo.30/)
+* customizable similarity map of a 2d projection of the model's final layer's hidden states, using various algorithms (a bit like the [Tensorflow Embedding Projector](https://projector.tensorflow.org/))
 * inline HTML representation of samples with token-level prediction + labels (my own; see 'Samples by loss' page for more info)
 * automatic selection of foreground-color (black/white) for a user-selected background-color
 * some fancy pandas styling here and there
@@ -44,7 +44,7 @@ A group of neurons tend to fire in response to commas and other punctuation. Oth
 
 ### Embeddings
 
-For every token in the dataset, we take its hidden state and project it onto a two-dimensional plane. Data points are colored by label/prediction, with mislabeled examples signified by a small black border.
+For every token in the dataset, we take its hidden state and project it onto a two-dimensional plane. Data points are colored by label/prediction, with mislabeled examples marked by a small black border.
 
 
 ### Probing
