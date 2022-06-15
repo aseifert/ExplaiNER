@@ -5,7 +5,7 @@ subtitle: "Error Analysis for NER models & datasets"
 
 Error Analysis is an important but often overlooked part of the data science project lifecycle, for which there is still very little tooling available. Practitioners tend to write throwaway code or, worse, skip this crucial step of understanding their models' errors altogether. This project tries to provide an extensive toolkit to probe any NER model/dataset combination, find labeling errors and understand the models' and datasets' limitations, leading the user on her way to further improvements.
 
-[Documentation](../doc/index.html) | [Slides](../presentation.pdf)
+[Documentation](../doc/index.html) | [Slides](../presentation.pdf) | [Github](https://github.com/aseifert/ExplaiNER)
 
 ## Getting started
 
