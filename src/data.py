@@ -110,16 +110,8 @@ def tokenize(batch, tokenizer) -> dict:
     return tokenized_inputs
 
 
-def stringify_ner_tags(batch, tags):
-    """Stringifies a dataset batch's NER tags.
-
-    Args:
-        batch (_type_): _description_
-        tags (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
+def stringify_ner_tags(batch: dict, tags) -> dict:
+    """Stringifies a dataset batch's NER tags."""
     return {"ner_tags_str": [tags.int2str(idx) for idx in batch["ner_tags"]]}
 
 
