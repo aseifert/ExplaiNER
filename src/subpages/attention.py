@@ -7,7 +7,7 @@ from streamlit.components.v1 import html
 
 from src.subpages.page import Context, Page  # type: ignore
 
-SETUP_HTML = """
+_SETUP_HTML = """
 <script src="https://requirejs.org/docs/release/2.3.6/minified/require.js"></script>
 <script>
     var ecco_url = 'https://storage.googleapis.com/ml-intro/ecco/'
@@ -69,17 +69,6 @@ SETUP_HTML = """
 </head>
 <div id="basic"></div>
 """
-
-JS_TEMPLATE = """requirejs(['basic', 'ecco'], function(basic, ecco){{
-    const viz_id = basic.init()
-
-    ecco.interactiveTokensAndFactorSparklines(viz_id, {}, {{
-    'hltrCFG': {{'tokenization_config': {{'token_prefix': '', 'partial_token_prefix': '##'}}
-        }}
-    }})
-}}, function (err) {{
-    console.log(err);
-}})"""
 
 
 @st.cache(allow_output_mutation=True)
@@ -160,10 +149,10 @@ class AttentionPage(Page):
         output = lm(inputs)
         nmf = output.run_nmf(n_components=n_components, from_layer=from_layer, to_layer=to_layer)
         data = nmf.explore(returnData=True)
-        JS_TEMPLATE = f"""<script>requirejs(['basic', 'ecco'], function(basic, ecco){{
+        _JS_TEMPLATE = f"""<script>requirejs(['basic', 'ecco'], function(basic, ecco){{
             const viz_id = basic.init()
             ecco.interactiveTokensAndFactorSparklines(viz_id, {data}, {{ 'hltrCFG': {{'tokenization_config': {{'token_prefix': '', 'partial_token_prefix': '##'}} }} }})
         }}, function (err) {{
             console.log(err);
         }})</script>"""
-        html(SETUP_HTML + JS_TEMPLATE, height=800, scrolling=True)
+        html(_SETUP_HTML + _JS_TEMPLATE, height=800, scrolling=True)

@@ -46,7 +46,16 @@ def get_collator(tokenizer) -> DataCollatorForTokenClassification:
     return DataCollatorForTokenClassification(tokenizer)
 
 
-def create_word_ids_from_tokens(tokenizer, input_ids: list[int]):
+def create_word_ids_from_input_ids(tokenizer, input_ids: list[int]) -> list[int]:
+    """Takes a list of input_ids and return corresponding word_ids
+
+    Args:
+        tokenizer: The tokenizer that was used to obtain the input ids.
+        input_ids (list[int]): List of token ids.
+
+    Returns:
+        list[int]: Word ids corresponding to the input ids.
+    """
     word_ids = []
     wid = -1
     tokens = [tokenizer.convert_ids_to_tokens(i) for i in input_ids]
@@ -65,16 +74,27 @@ def create_word_ids_from_tokens(tokenizer, input_ids: list[int]):
     return word_ids
 
 
-def tokenize_and_align_labels(examples, tokenizer):
-    tokenized_inputs = tokenizer(examples["tokens"], truncation=True, is_split_into_words=True)
+def tokenize(batch, tokenizer) -> dict:
+    """Tokenizes a batch of examples.
+
+    Args:
+        batch: The examples to tokenize
+        tokenizer: The tokenizer to use
+
+    Returns:
+        dict: The tokenized batch
+    """
+    tokenized_inputs = tokenizer(batch["tokens"], truncation=True, is_split_into_words=True)
     labels = []
     wids = []
 
-    for idx, label in enumerate(examples["ner_tags"]):
+    for idx, label in enumerate(batch["ner_tags"]):
         try:
             word_ids = tokenized_inputs.word_ids(batch_index=idx)
         except ValueError:
-            word_ids = create_word_ids_from_tokens(tokenizer, tokenized_inputs["input_ids"][idx])
+            word_ids = create_word_ids_from_input_ids(
+                tokenizer, tokenized_inputs["input_ids"][idx]
+            )
         previous_word_idx = None
         label_ids = []
         for word_idx in word_ids:
@@ -119,7 +139,7 @@ def encode_dataset(split: Dataset, tokenizer):
     remove_columns = split.column_names
     ids = split["id"]
     split = split.map(
-        partial(tokenize_and_align_labels, tokenizer=tokenizer),
+        partial(tokenize, tokenizer=tokenizer),
         batched=True,
         remove_columns=remove_columns,
     )
@@ -128,6 +148,18 @@ def encode_dataset(split: Dataset, tokenizer):
 
 
 def forward_pass_with_label(batch, model, collator, num_classes: int) -> dict:
+    """Runs the forward pass for a batch of examples.
+
+    Args:
+        batch: The batch to process
+        model: The model to process the batch with
+        collator: A data collator
+        num_classes (int): Number of classes
+
+    Returns:
+        dict: a dictionary containing `losses`, `preds` and `hidden_states`
+    """
+
     # Convert dict of lists to list of dicts suitable for data collator
     features = [dict(zip(batch, t)) for t in zip(*batch.values())]
 
@@ -159,19 +191,20 @@ def forward_pass_with_label(batch, model, collator, num_classes: int) -> dict:
     return {"losses": loss, "preds": preds, "hidden_states": hidden_states}
 
 
-def get_split_df(split_encoded: Dataset, model, tokenizer, collator, tags) -> pd.DataFrame:
-    """Turns a Dataset into a pandas dataframe.
+def predict(split_encoded: Dataset, model, tokenizer, collator, tags) -> pd.DataFrame:
+    """Generates predictions for a given dataset split and returns the results as a dataframe.
 
     Args:
-        split_encoded (Dataset): _description_
-        model (_type_): _description_
-        tokenizer (_type_): _description_
-        collator (_type_): _description_
-        tags (_type_): _description_
+        split_encoded (Dataset): The dataset to process
+        model: The model to process the dataset with
+        tokenizer: The tokenizer to process the dataset with
+        collator: The data collator to use
+        tags: The tags used in the dataset
 
     Returns:
-        pd.DataFrame: _description_
+        pd.DataFrame: A dataframe containing token-level predictions.
     """
+
     split_encoded = split_encoded.map(
         partial(
             forward_pass_with_label,

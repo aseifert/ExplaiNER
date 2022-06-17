@@ -34,6 +34,7 @@ classmap = {
 
 def aggrid_interactive_table(df: pd.DataFrame) -> dict:
     """Creates an st-aggrid interactive table based on a dataframe.
+
     Args:
         df (pd.DataFrame]): Source dataframe
     Returns:
@@ -60,6 +61,8 @@ def aggrid_interactive_table(df: pd.DataFrame) -> dict:
 
 
 def explode_df(df: pd.DataFrame) -> pd.DataFrame:
+    """Takes a dataframe and explodes all the fields."""
+
     df_tokens = df.apply(pd.Series.explode)
     if "losses" in df.columns:
         df_tokens["losses"] = df_tokens["losses"].astype(float)
@@ -67,7 +70,7 @@ def explode_df(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def align_sample(row: pd.Series):
-    """Use word_ids to align all lists in a sample."""
+    """Uses word_ids to align all lists in a sample."""
 
     columns = row.axes[0].to_list()
     indices = [i for i, id in enumerate(row.word_ids) if id >= 0 and id != row.word_ids[i - 1]]
@@ -113,7 +116,17 @@ def align_sample(row: pd.Series):
     hash_funcs=tokenizer_hash_funcs,
 )
 def tag_text(text: str, tokenizer, model, device: torch.device) -> pd.DataFrame:
-    """Create an (exploded) DataFrame with the predicted labels and probabilities."""
+    """Tags a given text and creates an (exploded) DataFrame with the predicted labels and probabilities.
+
+    Args:
+        text (str): The text to be processed
+        tokenizer: Tokenizer to use
+        model (_type_): Model to use
+        device (torch.device): The device we want pytorch to use for its calcultaions.
+
+    Returns:
+        pd.DataFrame: A data frame holding the tagged text.
+    """
 
     tokens = tokenizer(text).tokens()
     tokenized = tokenizer(text, return_tensors="pt")
@@ -137,21 +150,31 @@ def tag_text(text: str, tokenizer, model, device: torch.device) -> pd.DataFrame:
     return explode_df(merged_df).reset_index().drop(columns=["index"])
 
 
-def get_bg_color(label):
+def get_bg_color(label: str):
+    """Retrieves a label's color from the session state."""
     return st.session_state[f"color_{label}"]
 
 
-def get_fg_color(hex_color: str) -> str:
-    """Adapted from https://gomakethings.com/dynamically-changing-the-text-color-based-on-background-color-contrast-with-vanilla-js/"""
-    r = int(hex_color[1:3], 16)
-    g = int(hex_color[3:5], 16)
-    b = int(hex_color[5:7], 16)
+def get_fg_color(bg_color_hex: str) -> str:
+    """Chooses the proper (foreground) text color (black/white) for a given background color, maximizing contrast.
+
+    Adapted from https://gomakethings.com/dynamically-changing-the-text-color-based-on-background-color-contrast-with-vanilla-js/
+
+    Args:
+        bg_color_hex (str): The background color given as a HEX stirng.
+
+    Returns:
+        str: Either "black" or "white".
+    """
+    r = int(bg_color_hex[1:3], 16)
+    g = int(bg_color_hex[3:5], 16)
+    b = int(bg_color_hex[5:7], 16)
     yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000
     return "black" if (yiq >= 128) else "white"
 
 
 def colorize_classes(df: pd.DataFrame) -> pd.DataFrame:
-    """Colorize the errors in the dataframe."""
+    """Colorizes the errors in the dataframe."""
 
     def colorize_row(row):
         return [
@@ -175,6 +198,14 @@ def colorize_classes(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def htmlify_labeled_example(example: pd.DataFrame) -> str:
+    """Builds an HTML (string) representation of a single example.
+
+    Args:
+        example (pd.DataFrame): The example to process.
+
+    Returns:
+        str: An HTML string representation of a single example.
+    """
     html = []
 
     for _, row in example.iterrows():
@@ -215,18 +246,8 @@ def htmlify_labeled_example(example: pd.DataFrame) -> str:
     return " ".join(html)
 
 
-def htmlify_example(example: pd.DataFrame) -> str:
-    corr_html = " ".join(
-        [
-            f", {row.tokens}" if row.labels == "B-COMMA" else row.tokens
-            for _, row in example.iterrows()
-        ]
-    ).strip()
-    return f"<em>{corr_html}</em>"
-
-
 def color_map_color(value: float, cmap_name="Set1", vmin=0, vmax=1) -> str:
-    """Turn a value into a color using a color map."""
+    """Turns a value into a color using a color map."""
     norm = matplotlib.colors.Normalize(vmin=vmin, vmax=vmax)
     cmap = cm.get_cmap(cmap_name)  # PiYG
     rgba = cmap(norm(abs(value)))

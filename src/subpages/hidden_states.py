@@ -10,7 +10,19 @@ from src.subpages.page import Context, Page
 
 
 @st.cache
-def reduce_dim_svd(X, n_iter, random_state=42):
+def reduce_dim_svd(X, n_iter: int, random_state=42):
+    """Dimensionality reduction using truncated SVD (aka LSA).
+
+    This transformer performs linear dimensionality reduction by means of truncated singular value decomposition (SVD). Contrary to PCA, this estimator does not center the data before computing the singular value decomposition. This means it can work with sparse matrices efficiently.
+
+        Args:
+            X: Training data
+            n_iter (int): Desired dimensionality of output data. Must be strictly less than the number of features.
+            random_state (int, optional): Used during randomized svd. Pass an int for reproducible results across multiple function calls. Defaults to 42.
+
+        Returns:
+            ndarray: Reduced version of X, ndarray of shape (n_samples, 2).
+    """
     from sklearn.decomposition import TruncatedSVD
 
     svd = TruncatedSVD(n_components=2, n_iter=n_iter, random_state=random_state)
@@ -19,6 +31,17 @@ def reduce_dim_svd(X, n_iter, random_state=42):
 
 @st.cache
 def reduce_dim_pca(X, random_state=42):
+    """Principal component analysis (PCA).
+
+    Linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space. The input data is centered but not scaled for each feature before applying the SVD.
+
+        Args:
+            X: Training data
+            random_state (int, optional): Used when the 'arpack' or 'randomized' solvers are used. Pass an int for reproducible results across multiple function calls.
+
+        Returns:
+            ndarray: Reduced version of X, ndarray of shape (n_samples, 2).
+    """
     from sklearn.decomposition import PCA
 
     return PCA(n_components=2, random_state=random_state).fit_transform(X)
@@ -26,6 +49,19 @@ def reduce_dim_pca(X, random_state=42):
 
 @st.cache
 def reduce_dim_umap(X, n_neighbors=5, min_dist=0.1, metric="euclidean"):
+    """Uniform Manifold Approximation and Projection
+
+    Finds a low dimensional embedding of the data that approximates an underlying manifold.
+
+        Args:
+            X: Training data
+            n_neighbors (int, optional): The size of local neighborhood (in terms of number of neighboring sample points) used for manifold approximation. Larger values result in more global views of the manifold, while smaller values result in more local data being preserved. In general values should be in the range 2 to 100. Defaults to 5.
+            min_dist (float, optional): The effective minimum distance between embedded points. Smaller values will result in a more clustered/clumped embedding where nearby points on the manifold are drawn closer together, while larger values will result on a more even dispersal of points. The value should be set relative to the `spread` value, which determines the scale at which embedded points will be spread out. Defaults to 0.1.
+            metric (str, optional): The metric to use to compute distances in high dimensional space (see UMAP docs for options). Defaults to "euclidean".
+
+        Returns:
+            ndarray: Reduced version of X, ndarray of shape (n_samples, 2).
+    """
     from umap import UMAP
 
     return UMAP(n_neighbors=n_neighbors, min_dist=min_dist, metric=metric).fit_transform(X)

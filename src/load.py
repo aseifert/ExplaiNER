@@ -4,7 +4,7 @@ import pandas as pd
 import streamlit as st
 from datasets import Dataset  # type: ignore
 
-from src.data import encode_dataset, get_collator, get_data, get_split_df
+from src.data import encode_dataset, get_collator, get_data, predict
 from src.model import get_encoder, get_model, get_tokenizer
 from src.subpages import Context
 from src.utils import align_sample, device, explode_df
@@ -68,7 +68,7 @@ def load_context(
     split_encoded, word_ids, ids = encode_dataset(split, tokenizer)
 
     # transform into dataframe
-    df = get_split_df(split_encoded, model, tokenizer, collator, tags)
+    df = predict(split_encoded, model, tokenizer, collator, tags)
     df["word_ids"] = word_ids
     df["ids"] = ids
 
