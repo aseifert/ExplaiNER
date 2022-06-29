@@ -29,10 +29,13 @@ class Context:
 
 
 class Page:
-    """Base class for all pages."""
+    """This class encapsulates the logic for a single page of the application."""
 
     name: str
+    """The page's name that will be used in the sidebar menu."""
+
     icon: str
+    """The page's icon that will be used in the sidebar menu."""
 
     def _get_widget_defaults(self):
         """This function holds the default settings for all widgets contained on this page.
