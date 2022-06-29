@@ -31,9 +31,11 @@ class InspectPage(Page):
             # st.dataframe(colorize_classes(df).format(precision=3).bar(subset="losses"))  # type: ignore
             st.dataframe(colorize_classes(df.round(3).astype(str)))
 
-            if st.button("Next example"):
-                st.session_state.next_id = (ids.index(example_id) + 1) % len(ids)
-            if st.button("Previous example"):
-                st.session_state.next_id = (ids.index(example_id) - 1) % len(ids)
+            # if st.button("➡️ Next example"):
+            #     st.session_state.next_id = (ids.index(example_id) + 1) % len(ids)
+            #     st.experimental_rerun()
+            # if st.button("⬅️ Previous example"):
+            #     st.session_state.next_id = (ids.index(example_id) - 1) % len(ids)
+            #     st.experimental_rerun()
         else:
             aggrid_interactive_table(df.round(3))
