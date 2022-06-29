@@ -15,7 +15,7 @@ class FindDuplicatesPage(Page):
     name = "Find Duplicates"
     icon = "fingerprint"
 
-    def get_widget_defaults(self):
+    def _get_widget_defaults(self):
         return {
             "cutoff": 0.95,
         }

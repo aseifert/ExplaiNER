@@ -37,7 +37,7 @@ class HomePage(Page):
     name = "Home / Setup"
     icon = "house"
 
-    def get_widget_defaults(self):
+    def _get_widget_defaults(self):
         return {
             "encoder_model_name": _SENTENCE_ENCODER_MODEL,
             "model_name": _MODEL_NAME,

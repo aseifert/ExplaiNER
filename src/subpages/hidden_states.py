@@ -71,7 +71,7 @@ class HiddenStatesPage(Page):
     name = "Hidden States"
     icon = "grid-3x3"
 
-    def get_widget_defaults(self):
+    def _get_widget_defaults(self):
         return {
             "n_tokens": 1_000,
             "svd_n_iter": 5,

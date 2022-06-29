@@ -10,7 +10,7 @@ from transformers import AutoTokenizer  # type: ignore
 
 @dataclass
 class Context:
-    """This object facilitates passing around the applications state between different pages."""
+    """This object facilitates passing around the application's state between different pages."""
 
     model: AutoModelForSequenceClassification
     tokenizer: AutoTokenizer
@@ -34,8 +34,8 @@ class Page:
     name: str
     icon: str
 
-    def get_widget_defaults(self):
-        """This function holds the default settings for all the page's widgets.
+    def _get_widget_defaults(self):
+        """This function holds the default settings for all widgets contained on this page.
 
         Returns:
             dict: A dictionary of widget defaults, where the keys are the widget names and the values are the default.

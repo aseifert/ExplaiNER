@@ -15,7 +15,7 @@ class LossySamplesPage(Page):
     name = "Samples by Loss"
     icon = "sort-numeric-down-alt"
 
-    def get_widget_defaults(self):
+    def _get_widget_defaults(self):
         return {
             "skip_correct": True,
             "samples_by_loss_show_df": True,

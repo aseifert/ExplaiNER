@@ -52,7 +52,7 @@ class MetricsPage(Page):
     name = "Metrics"
     icon = "graph-up-arrow"
 
-    def get_widget_defaults(self):
+    def _get_widget_defaults(self):
         return {
             "normalize": True,
             "zero_diagonal": False,

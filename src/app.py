@@ -1,7 +1,6 @@
 """The App module is the main entry point for the application.
 
     Run `streamlit run app.py` to start the app.
-
 """
 
 import pandas as pd
@@ -53,7 +52,7 @@ def _show_menu(pages: list[Page]) -> int:
 def _initialize_session_state(pages: list[Page]):
     if "active_page" not in st.session_state:
         for page in pages:
-            st.session_state.update(**page.get_widget_defaults())
+            st.session_state.update(**page._get_widget_defaults())
     st.session_state.update(st.session_state)
 
 

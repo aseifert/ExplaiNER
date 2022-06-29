@@ -29,7 +29,7 @@ class ProbingPage(Page):
     name = "Probing"
     icon = "fonts"
 
-    def get_widget_defaults(self):
+    def _get_widget_defaults(self):
         return {"probing_textarea": _DEFAULT_SENTENCES}
 
     def render(self, context: Context):

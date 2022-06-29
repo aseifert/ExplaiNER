@@ -10,7 +10,7 @@ class RandomSamplesPage(Page):
     name = "Random Samples"
     icon = "shuffle"
 
-    def get_widget_defaults(self):
+    def _get_widget_defaults(self):
         return {
             "random_sample_size_min": 128,
         }
