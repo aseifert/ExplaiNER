@@ -19,7 +19,7 @@ Error Analysis is an important but often overlooked part of the data science pro
 
 ### Activations
 
-A group of neurons tend to fire in response to commas and other punctuation. Other groups of neurons tend to fire in response to pronouns. Use this visualization to factorize neuron activity in individual FFNN layers or in the entire model.
+A group of neurons tends to fire in response to commas and other punctuation. Other groups of neurons tend to fire in response to pronouns. Use this visualization to factorize neuron activity in individual FFNN layers or in the entire model.
 
 
 ### Embeddings

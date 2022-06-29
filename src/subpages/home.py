@@ -45,6 +45,7 @@ class HomePage(Page):
             "ds_split_name": "validation",
             "ds_config_name": _CONFIG_NAME,
             "split_sample_size": 512,
+            "randomize_sample": True,
         }
 
     def render(self, context: Optional[Context] = None):
@@ -118,11 +119,18 @@ class HomePage(Page):
                     key="split_sample_size",
                     help="Sample size for the split, speeds up processing inside streamlit",
                 )
+                randomize_sample = st.checkbox(
+                    "Randomize sample",
+                    key="randomize_sample",
+                    help="Whether to randomize the sample",
+                )
                 # breakpoint()
                 # st.form_submit_button("Submit")
                 st.form_submit_button("Load Model & Data")
 
-        split = get_data(ds_name, ds_config_name, ds_split_name, split_sample_size)
+        split = get_data(
+            ds_name, ds_config_name, ds_split_name, split_sample_size, randomize_sample  # type: ignore
+        )
         labels = list(
             set([n.split("-")[1] for n in split.features["ner_tags"].feature.names if n != "O"])
         )

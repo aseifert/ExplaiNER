@@ -11,7 +11,9 @@ from src.utils import device, tokenizer_hash_funcs
 
 
 @st.cache(allow_output_mutation=True)
-def get_data(ds_name: str, config_name: str, split_name: str, split_sample_size: int) -> Dataset:
+def get_data(
+    ds_name: str, config_name: str, split_name: str, split_sample_size: int, randomize_sample: bool
+) -> Dataset:
     """Loads a Dataset from the HuggingFace hub (if not already loaded).
 
     Uses `datasets.load_dataset` to load the dataset (see its documentation for additional details).
@@ -25,7 +27,9 @@ def get_data(ds_name: str, config_name: str, split_name: str, split_sample_size:
     Returns:
         Dataset: A Dataset object.
     """
-    ds: DatasetDict = load_dataset(ds_name, name=config_name, use_auth_token=True).shuffle(seed=0)  # type: ignore
+    ds: DatasetDict = load_dataset(ds_name, name=config_name, use_auth_token=True).shuffle(
+        seed=0 if randomize_sample else None
+    )  # type: ignore
     split = ds[split_name].select(range(split_sample_size))
     return split
 

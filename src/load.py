@@ -37,6 +37,7 @@ def load_context(
     ds_config_name: str,
     ds_split_name: str,
     split_sample_size: int,
+    randomize_sample: bool,
     **kw_args,
 ) -> Context:
     """Utility method loading (almost) everything we need for the application.
@@ -63,7 +64,9 @@ def load_context(
     collator = get_collator(tokenizer)
 
     # load data related stuff
-    split: Dataset = get_data(ds_name, ds_config_name, ds_split_name, split_sample_size)
+    split: Dataset = get_data(
+        ds_name, ds_config_name, ds_split_name, split_sample_size, randomize_sample
+    )
     tags = split.features["ner_tags"].feature
     split_encoded, word_ids, ids = encode_dataset(split, tokenizer)
 
