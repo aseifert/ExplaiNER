@@ -96,7 +96,7 @@ class AttentionPage(Page):
             "act_n_components": 8,
             "act_default_text": """Now I ask you: what can be expected of man since he is a being endowed with strange qualities? Shower upon him every earthly blessing, drown him in a sea of happiness, so that nothing but bubbles of bliss can be seen on the surface; give him economic prosperity, such that he should have nothing else to do but sleep, eat cakes and busy himself with the continuation of his species, and even then out of sheer ingratitude, sheer spite, man would play you some nasty trick. He would even risk his cakes and would deliberately desire the most fatal rubbish, the most uneconomical absurdity, simply to introduce into all this positive good sense his fatal fantastic element. It is just his fantastic dreams, his vulgar folly that he will desire to retain, simply in order to prove to himself--as though that were so necessary-- that men still are men and not the keys of a piano, which the laws of nature threaten to control so completely that soon one will be able to desire nothing but by the calendar. And that is not all: even if man really were nothing but a piano-key, even if this were proved to him by natural science and mathematics, even then he would not become reasonable, but would purposely do something perverse out of simple ingratitude, simply to gain his point. And if he does not find means he will contrive destruction and chaos, will contrive sufferings of all sorts, only to gain his point! He will launch a curse upon the world, and as only man can curse (it is his privilege, the primary distinction between him and other animals), may be by his curse alone he will attain his object--that is, convince himself that he is a man and not a piano-key!""",
             "act_from_layer": 0,
-            "act_to_layer": 6,
+            "act_to_layer": 5,
         }
 
     def render(self, context: Context):
@@ -119,16 +119,13 @@ class AttentionPage(Page):
                 max_value=10,
                 step=1,
             )
-            from_layer = (
-                st.slider(
-                    "from layer",
-                    key="act_from_layer",
-                    value=0,
-                    min_value=0,
-                    max_value=len(lm.model.transformer.layer) - 1,
-                    step=1,
-                )
-                or None
+            from_layer = st.slider(
+                "from layer",
+                key="act_from_layer",
+                value=0,
+                min_value=0,
+                max_value=len(lm.model.transformer.layer) - 1,
+                step=1,
             )
             to_layer = (
                 st.slider(
@@ -136,11 +133,16 @@ class AttentionPage(Page):
                     key="act_to_layer",
                     value=0,
                     min_value=0,
-                    max_value=len(lm.model.transformer.layer),
+                    max_value=len(lm.model.transformer.layer) - 1,
                     step=1,
                 )
-                or None
+                + 1
             )
+
+        if to_layer <= from_layer:
+            st.error("to_layer must be >= from_layer")
+            st.stop()
+
         with col2:
             st.subheader("–")
             text = st.text_area("Text", key="act_default_text", height=240)
