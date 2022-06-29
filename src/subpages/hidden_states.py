@@ -1,5 +1,5 @@
 """
-For every token in the dataset, we take its hidden state and project it onto a two-dimensional plane. Data points are colored by label/prediction, with mislabeled examples marked by a small black border.
+For every token in the dataset, we take its hidden state and project it onto a two-dimensional plane. Data points are colored by label/prediction, with disagreements marked by a small black border.
 """
 import numpy as np
 import plotly.express as px
@@ -86,7 +86,7 @@ class HiddenStatesPage(Page):
 
         with st.expander("💡", expanded=True):
             st.write(
-                "For every token in the dataset, we take its hidden state and project it onto a two-dimensional plane. Data points are colored by label/prediction, with mislabeled examples signified by a small black border."
+                "For every token in the dataset, we take its hidden state and project it onto a two-dimensional plane. Data points are colored by label/prediction, with disagreements signified by a small black border."
             )
 
         col1, _, col2 = st.columns([9 / 32, 1 / 32, 22 / 32])
@@ -152,12 +152,12 @@ class HiddenStatesPage(Page):
             df["sent2"] = df["ids"].map(lambda x: " ".join(sents[x][100:150].split()))
             df["sent3"] = df["ids"].map(lambda x: " ".join(sents[x][150:200].split()))
             df["sent4"] = df["ids"].map(lambda x: " ".join(sents[x][200:250].split()))
-            df["mislabeled"] = df["labels"] != df["preds"]
+            df["disagreements"] = df["labels"] != df["preds"]
 
             subset = df[:n_tokens]
-            mislabeled_examples_trace = go.Scatter(
-                x=subset[subset["mislabeled"]]["x"],
-                y=subset[subset["mislabeled"]]["y"],
+            disagreements_trace = go.Scatter(
+                x=subset[subset["disagreements"]]["x"],
+                y=subset[subset["disagreements"]]["y"],
                 mode="markers",
                 marker=dict(
                     size=6,
@@ -178,7 +178,7 @@ class HiddenStatesPage(Page):
                 hover_name="tokens",
                 title="Colored by label",
             )
-            fig.add_trace(mislabeled_examples_trace)
+            fig.add_trace(disagreements_trace)
             st.plotly_chart(fig)
 
             fig = px.scatter(
@@ -190,5 +190,5 @@ class HiddenStatesPage(Page):
                 hover_name="tokens",
                 title="Colored by prediction",
             )
-            fig.add_trace(mislabeled_examples_trace)
+            fig.add_trace(disagreements_trace)
             st.plotly_chart(fig)

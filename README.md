@@ -24,7 +24,7 @@ A group of neurons tend to fire in response to commas and other punctuation. Oth
 
 ### Embeddings
 
-For every token in the dataset, we take its hidden state and project it onto a two-dimensional plane. Data points are colored by label/prediction, with mislabeled examples marked by a small black border.
+For every token in the dataset, we take its hidden state and project it onto a two-dimensional plane. Data points are colored by label/prediction, with disagreements marked by a small black border.
 
 
 ### Probing

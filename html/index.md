@@ -51,7 +51,7 @@ Activations
 
 Hidden States
 
-> For every token in the dataset, we take its hidden state and project it onto a two-dimensional plane. Data points are colored by label/prediction, with mislabeled examples marked by a small black border.
+> For every token in the dataset, we take its hidden state and project it onto a two-dimensional plane. Data points are colored by label/prediction, with disagreements marked by a small black border.
 >
 > Using these projections you can visually identify data points that end up in the wrong neighborhood, indicating prediction/labeling errors.
 
